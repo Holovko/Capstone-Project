@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "220198745632",
+    "firebase_url": "https://kyiv-mom-map.firebaseio.com",
+    "project_id": "kyiv-mom-map",
+    "storage_bucket": "kyiv-mom-map.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220198745632:android:c49e1b48b6b36b51",
+        "android_client_info": {
+          "package_name": "com.holovko.kyivmommap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220198745632-ehgna1tjq4qvefs5fnobne02rv0ea4kn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.holovko.kyivmommap",
+            "certificate_hash": "81F8DE95A4B9870EF9F13C90C321E37C6DEC6C02"
+          }
+        },
+        {
+          "client_id": "220198745632-sm7a17mi41toh8j7d2kfihjrpl49v7mi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5X4GdO76ros3MutHK7v0-BKJYQMhR02k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220198745632-sm7a17mi41toh8j7d2kfihjrpl49v7mi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

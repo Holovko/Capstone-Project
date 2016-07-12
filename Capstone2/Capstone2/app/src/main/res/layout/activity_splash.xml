@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/background_repeated"
+
+    tools:context="com.holovko.kyivmommap.SplashActivity">
+
+    <View
+        android:id="@+id/view_gray_line"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/splash_gray_line"
+        android:background="@color/gray_light"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_alignBottom="@id/view_gray_line"
+        android:layout_height="@dimen/splash_gray_dark_line"
+        android:background="@color/gray"/>
+
+    <ImageView
+        android:contentDescription="@string/app_name"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/splash_pic"
+        android:scaleType="fitEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_subhead"
+        android:text="@string/title_digital_mother"/>
+</RelativeLayout>
