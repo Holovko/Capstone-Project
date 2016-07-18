@@ -2,4 +2,14 @@
     <string name="app_name">Kyiv Mom Map</string>
     <string name="title_loading">Loading</string>
     <string name="title_digital_mother">Digital Mother</string>
+    <string name="title_activity_select">SelectActivity</string>
+    <string name="title_parks">PARKS</string>
+    <string name="title_playgrounds">PLAYGROUNDS</string>
+    <string name="title_restaurants">RESTAURANTS</string>
+    <string name="title_museums">MUSEUMS</string>
+    <string name="title_indoor_play_areas">INDOOR PLAYAREAS</string>
+    <string name="title_favourite">FAVOURITE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
