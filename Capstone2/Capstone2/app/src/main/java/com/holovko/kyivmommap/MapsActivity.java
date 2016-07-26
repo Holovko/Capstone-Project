@@ -3,6 +3,7 @@ package com.holovko.kyivmommap;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -13,12 +14,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.holovko.kyivmommap.model.Place;
 
 import java.util.ArrayList;
 
 public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Place testPlace1 = new Place(true,"My Title 1","Description 1",50.389419, 30.499712,5);
+    private Place testPlace2 = new Place(true,"My Title 2","Description 1",50.365076, 30.466265,4);
+    private Place testPlace3 = new Place(true,"My Title 3","Description 1",50.343102, 30.549816,3);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +44,10 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        mMap.setInfoWindowAdapter(new CustomInfoWindow());
         // Add a marker in Sydney and move the camera
 
         LatLng sydney = new LatLng(50.389419, 30.499712);
@@ -71,11 +67,11 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
      */
     private void setAnimatesOnMap(LatLngBounds latLngBounds) {
         int padding = 50; // offset from edges of the map in pixels
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(latLngBounds, padding);
+        CameraUpdate cu = CameraUpdateFactory
+                .newLatLngBounds(latLngBounds,padding,0,0);
+                //.newLatLngBounds(latLngBounds, padding);
         mMap.moveCamera(cu);
         mMap.animateCamera(cu);
-
-        mMap.setInfoWindowAdapter();
     }
 
     /**
@@ -100,5 +96,20 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
             builder.include(latLng);
         }
         return builder.build();
+    }
+
+
+    public class CustomInfoWindow implements GoogleMap.InfoWindowAdapter {
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            View v = getLayoutInflater().inflate(R.layout.item_info_window,null);
+            return v;
+        }
     }
 }

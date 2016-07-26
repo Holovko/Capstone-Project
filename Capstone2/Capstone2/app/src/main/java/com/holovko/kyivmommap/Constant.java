@@ -49,6 +49,22 @@ public class Constant {
         throw new IllegalArgumentException();
     }
 
+    public static String getNodeByType(@RubricType int type) {
+        switch (type) {
+            case RUBRIC_INDOOR_PLAY_AREA:
+                return "play_area";
+            case RUBRIC_MUSEUMS:
+                return "museums";
+            case RUBRIC_PARKS:
+                return "parks";
+            case RUBRIC_PLAYGROUNDS:
+                return "play_grounds";
+            case RUBRIC_RESTAURANTS:
+                return "restaurants";
+        }
+        throw new IllegalArgumentException();
+    }
+
     @DrawableRes
     public static int getBackGroundByRubric(@RubricType int type) {
         switch (type) {
