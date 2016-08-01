@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:minWidth="@dimen/map_card_min_width"
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_title"
+        style="@style/MyText.MyTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title"/>
+        tools:text="Title"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_description"
+        style="@style/MyText.Body"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" sdf sd fsd sd fsd fsa df skld fsdf sd f"/>
+        tools:text=" sdf sd fsd sd fsd fsa df skld fsdf sd f"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/rb_stars"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:rating="5"/>
+
+        <Button
+            android:id="@+id/btn_detail"
+            style="@style/MyButton.Borderless"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="end|bottom"
+            android:text="@string/title_details"/>
+    </LinearLayout>
 </LinearLayout>

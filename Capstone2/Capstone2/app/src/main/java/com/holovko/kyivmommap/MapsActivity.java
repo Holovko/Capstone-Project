@@ -2,8 +2,10 @@ package com.holovko.kyivmommap;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,26 +16,40 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.holovko.kyivmommap.data.MockDataProvider;
 import com.holovko.kyivmommap.model.Place;
+import com.holovko.kyivmommap.presenter.MapPresenter;
+import com.holovko.kyivmommap.view.MapView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MapsActivity extends BaseActivity implements MapView, OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private Place testPlace1 = new Place(true,"My Title 1","Description 1",50.389419, 30.499712,5);
-    private Place testPlace2 = new Place(true,"My Title 2","Description 1",50.365076, 30.466265,4);
-    private Place testPlace3 = new Place(true,"My Title 3","Description 1",50.343102, 30.549816,3);
+    private MapPresenter mPresenter;
+    private HashMap<Marker, Place> mPlacesOnMap = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        //mPresenter = new MapPresenter(DataProvider.getInstance());
+        mPresenter = new MapPresenter(this, new MockDataProvider());
+    }
 
+    @Override
+    public void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar!=null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
@@ -48,14 +64,21 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setInfoWindowAdapter(new CustomInfoWindow());
-        // Add a marker in Sydney and move the camera
+        mPresenter.onMapReady();
+    }
 
-        LatLng sydney = new LatLng(50.389419, 30.499712);
-        Marker marker = mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    public void fillMapMarkerPLace(double latitude, double longitude, Place place) {
+        LatLng coordinate = new LatLng(latitude, longitude);
+        Marker marker = mMap.addMarker(new MarkerOptions().position(coordinate));
+        mPlacesOnMap.put(marker, place);
 
-        ArrayList<Marker> markers = new ArrayList<>();
-        markers.add(marker);
+    }
+
+    public void showAllOnMaps() {
+        List<Marker> markers = new ArrayList<>();
+        for (Map.Entry<Marker, Place> entry : mPlacesOnMap.entrySet()) {
+            markers.add(entry.getKey());
+        }
         LatLngBounds bounds = getBoundsOnMap(markers);
         setAnimatesOnMap(bounds);
     }
@@ -63,24 +86,28 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
     /**
      * Show all markers
+     *
      * @param latLngBounds
      */
     private void setAnimatesOnMap(LatLngBounds latLngBounds) {
-        int padding = 50; // offset from edges of the map in pixels
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int padding = (int) (width * 0.12); // offset from edges of the map 12% of screen
+
         CameraUpdate cu = CameraUpdateFactory
-                .newLatLngBounds(latLngBounds,padding,0,0);
-                //.newLatLngBounds(latLngBounds, padding);
+                .newLatLngBounds(latLngBounds, width, height, padding);
         mMap.moveCamera(cu);
         mMap.animateCamera(cu);
     }
 
     /**
      * Return bounds to fit all markers
+     *
      * @param markers
      * @return
      */
 
-    private  LatLngBounds getBoundsOnMap(ArrayList<Marker> markers) {
+    private LatLngBounds getBoundsOnMap(List<Marker> markers) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (Marker marker : markers) {
             builder.include(marker.getPosition());
@@ -88,11 +115,11 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
         return builder.build();
     }
 
-    private  LatLngBounds getBoundsOnMapByCoords(ArrayList<LatLng> latLngs) {
+    private LatLngBounds getBoundsOnMapByCoords(ArrayList<LatLng> latLngs) {
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         for (LatLng latLng : latLngs) {
             //Skip null object
-            if(latLng==null)continue;
+            if (latLng == null) continue;
             builder.include(latLng);
         }
         return builder.build();
@@ -101,6 +128,13 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
     public class CustomInfoWindow implements GoogleMap.InfoWindowAdapter {
 
+        @BindView(R.id.tv_title)
+        TextView mTvTitle;
+        @BindView(R.id.tv_description)
+        TextView mTvDescription;
+        @BindView(R.id.rb_stars)
+        AppCompatRatingBar mRbStars;
+
         @Override
         public View getInfoWindow(Marker marker) {
             return null;
@@ -108,7 +142,12 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback {
 
         @Override
         public View getInfoContents(Marker marker) {
-            View v = getLayoutInflater().inflate(R.layout.item_info_window,null);
+            View v = getLayoutInflater().inflate(R.layout.item_info_window, null);
+            ButterKnife.bind(this, v);
+            Place place = mPlacesOnMap.get(marker);
+            mTvTitle.setText(place.title);
+            mTvDescription.setText(place.description);
+            mRbStars.setRating(place.rank);
             return v;
         }
     }

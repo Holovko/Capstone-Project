@@ -15,4 +15,5 @@
     <string name="title_choose_category">Choose category</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_places_on_map">Places on map</string>
+    <string name="title_details">Details</string>
 </resources>

@@ -20,4 +20,7 @@ public class Place {
     public double latitude;
     public double longitude;
     public float rank;
+
+    public Place() {
+    }
 }

@@ -34,4 +34,16 @@
         <item name="android:shadowColor">@android:color/black</item>
     </style>
 
+    <style name="MyText"/>
+
+    <style name="MyText.MyTitle" parent="TextAppearance.AppCompat.Title"/>
+
+    <style name="MyText.Body" parent="TextAppearance.AppCompat.Body1"/>
+
+    <style name="MyText.Caption" parent="TextAppearance.AppCompat.Caption"/>
+
+    <style name="MyButton"/>
+    <style name="MyButton.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
 </resources>
