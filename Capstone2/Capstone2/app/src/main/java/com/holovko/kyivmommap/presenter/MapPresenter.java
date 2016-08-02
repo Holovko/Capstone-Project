@@ -3,6 +3,7 @@ package com.holovko.kyivmommap.presenter;
 import com.holovko.kyivmommap.Constant;
 import com.holovko.kyivmommap.data.IDataProvider;
 import com.holovko.kyivmommap.model.Place;
+import com.holovko.kyivmommap.model.PlaceOld;
 import com.holovko.kyivmommap.view.MapView;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class MapPresenter {
     private void fillPlacesOnMap() {
         if(isMapReady && mPlaces!=null){
             for (Place place : mPlaces) {
-                mView.fillMapMarkerPLace(place.latitude,place.longitude, place);
+                mView.fillMapMarkerPLace(place.latitude(),place.longitude(), place);
             }
             mView.showAllOnMaps();
         }

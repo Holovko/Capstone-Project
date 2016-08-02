@@ -1,26 +1,33 @@
 package com.holovko.kyivmommap.model;
 
+import android.os.Parcelable;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.auto.value.AutoValue;
+
 /**
- * Model for place
- * Created by Andrey Holovko on 7/26/16.
+ * Created by Andrey Holovko on 8/2/16.
  */
-public class Place {
-    public Place(boolean approved, String title, String description, double latitude, double longitude, float rank) {
-        this.approved = approved;
-        this.title = title;
-        this.description = description;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.rank = rank;
-    }
 
-    public boolean approved;
-    public String title;
-    public String description;
-    public double latitude;
-    public double longitude;
-    public float rank;
+@AutoValue public abstract class Place implements Parcelable {
+    @JsonProperty("approved") public abstract boolean approved();
+    @JsonProperty("title") public abstract String title();
+    @JsonProperty("description") public abstract String description();
+    @JsonProperty("pic") public abstract String pic();
+    @JsonProperty("latitude") public abstract double latitude();
+    @JsonProperty("longitude") public abstract double longitude();
+    @JsonProperty("rank") public abstract float rank();
 
-    public Place() {
+    @JsonCreator
+    public static Place create(
+            @JsonProperty("approved") boolean approved,
+            @JsonProperty("title")  String title,
+            @JsonProperty("description") String description,
+            @JsonProperty("pic")  String pic,
+            @JsonProperty("latitude") double latitude,
+            @JsonProperty("longitude") double longitude,
+            @JsonProperty("rank") float rank){
+        return new AutoValue_Place(approved, title, description, pic, latitude, longitude, rank);
     }
 }

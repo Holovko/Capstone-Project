@@ -43,6 +43,7 @@
     <style name="MyText.Caption" parent="TextAppearance.AppCompat.Caption"/>
 
     <style name="MyButton"/>
+
     <style name="MyButton.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">@color/colorAccent</item>
     </style>

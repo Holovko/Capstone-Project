@@ -1,10 +1,12 @@
 package com.holovko.kyivmommap.data;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.holovko.kyivmommap.Constant;
@@ -12,6 +14,7 @@ import com.holovko.kyivmommap.model.Place;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Data provider
@@ -43,7 +46,19 @@ public class DataProvider implements IDataProvider {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Place> placeList = new ArrayList<>();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Place place = postSnapshot.getValue(Place.class);
+                    // Use Firebase to convert to a Map<String,Object>
+                    /*GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>() {};
+                    Map<String,Object> map = dataSnapshot.getValue(t);
+*/
+                    // Use Jackson to convert from a Map to an Office object
+                    /*ObjectMapper mapper = new ObjectMapper();
+                    Place place = mapper.convertValue(map, Place.class);*/
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    GenericTypeIndicator<Map<String,Object>> indicator = new GenericTypeIndicator<Map<String, Object>>() {};
+                    Place place = mapper.convertValue(dataSnapshot.getValue(indicator), Place.class);
+
+                   // Place place = postSnapshot.getValue(Place.class);
                     placeList.add(place);
                 }
                 pLacesListener.onGetPlaces(placeList);
