@@ -8,5 +8,5 @@ import com.holovko.kyivmommap.model.Place;
 public interface MapView {
     void initView();
     void showAllOnMaps();
-    void fillMapMarkerPLace(double latitude, double longitude, Place place);
+    void fillMapMarkerPLace(String key, Place place, double latitude, double longitude);
 }

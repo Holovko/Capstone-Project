@@ -13,6 +13,7 @@ import com.holovko.kyivmommap.Constant;
 import com.holovko.kyivmommap.model.Place;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,24 +45,21 @@ public class DataProvider implements IDataProvider {
         getPlacesByType(type).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String,Place> keyPlaceMaps = new HashMap<>();
                 List<Place> placeList = new ArrayList<>();
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     // Use Firebase to convert to a Map<String,Object>
-                    /*GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>() {};
+                    GenericTypeIndicator<Map<String,Object>> t = new GenericTypeIndicator<Map<String,Object>>() {};
                     Map<String,Object> map = dataSnapshot.getValue(t);
-*/
                     // Use Jackson to convert from a Map to an Office object
-                    /*ObjectMapper mapper = new ObjectMapper();
-                    Place place = mapper.convertValue(map, Place.class);*/
-
                     ObjectMapper mapper = new ObjectMapper();
-                    GenericTypeIndicator<Map<String,Object>> indicator = new GenericTypeIndicator<Map<String, Object>>() {};
-                    Place place = mapper.convertValue(dataSnapshot.getValue(indicator), Place.class);
 
-                   // Place place = postSnapshot.getValue(Place.class);
-                    placeList.add(place);
+
+                for(Map.Entry<String,Object> cursor: map.entrySet()){
+                    String key = cursor.getKey();
+                    Place pla = mapper.convertValue(cursor.getValue(), Place.class);
+                    keyPlaceMaps.put(key, pla);
                 }
-                pLacesListener.onGetPlaces(placeList);
+                pLacesListener.onGetPlaces(keyPlaceMaps);
             }
 
             @Override

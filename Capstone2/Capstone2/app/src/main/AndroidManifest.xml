@@ -54,6 +54,7 @@
         <activity
             android:name=".DetailsActivity"
             android:label="@string/title_activity_details"
+            android:parentActivityName=".MapsActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

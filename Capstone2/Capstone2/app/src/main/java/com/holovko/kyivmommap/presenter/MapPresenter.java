@@ -3,38 +3,38 @@ package com.holovko.kyivmommap.presenter;
 import com.holovko.kyivmommap.Constant;
 import com.holovko.kyivmommap.data.IDataProvider;
 import com.holovko.kyivmommap.model.Place;
-import com.holovko.kyivmommap.model.PlaceOld;
 import com.holovko.kyivmommap.view.MapView;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * Presenter for MapView
  * Created by Andrey Holovko on 7/26/16.
  */
 public class MapPresenter {
-    private List<Place> mPlaces;
+    private Map<String, Place> mPlaces;
     IDataProvider mDataProvider;
     MapView mView;
 
 
     private final IDataProvider.OnGetPLacesListener mPLaceListener = new IDataProvider.OnGetPLacesListener() {
         @Override
-        public void onGetPlaces(List<Place> places) {
+        public void onGetPlaces(Map<String, Place> places) {
             updatePLaces(places);
         }
     };
     private boolean isMapReady;
 
-    private void updatePLaces(List<Place> places) {
+    private void updatePLaces(Map<String, Place> places) {
         mPlaces = places;
         fillPlacesOnMap();
     }
 
     private void fillPlacesOnMap() {
         if(isMapReady && mPlaces!=null){
-            for (Place place : mPlaces) {
-                mView.fillMapMarkerPLace(place.latitude(),place.longitude(), place);
+            for (Map.Entry<String,Place> placeWithKey : mPlaces.entrySet()) {
+                Place place = placeWithKey.getValue();
+                mView.fillMapMarkerPLace(placeWithKey.getKey(), place, place.latitude(), place.longitude());
             }
             mView.showAllOnMaps();
         }

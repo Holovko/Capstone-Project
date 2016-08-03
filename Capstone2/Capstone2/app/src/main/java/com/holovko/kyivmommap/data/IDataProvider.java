@@ -5,6 +5,7 @@ import com.holovko.kyivmommap.Constant;
 import com.holovko.kyivmommap.model.Place;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Andrey Holovko on 7/26/16.
@@ -14,6 +15,6 @@ public interface IDataProvider {
     void getListPlacesByType(@Constant.RubricType int type, OnGetPLacesListener pLacesListener);
 
     interface OnGetPLacesListener{
-        void onGetPlaces(List<Place> places);
+        void onGetPlaces(Map<String, Place> places);
     }
 }
