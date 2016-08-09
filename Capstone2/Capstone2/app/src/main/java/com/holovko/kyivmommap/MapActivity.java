@@ -32,7 +32,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MapsActivity extends BaseActivity implements MapView, OnMapReadyCallback {
+public class MapActivity extends BaseActivity implements MapView, OnMapReadyCallback {
 
     private GoogleMap mMap;
     private MapPresenter mPresenter;
@@ -77,7 +77,7 @@ public class MapsActivity extends BaseActivity implements MapView, OnMapReadyCal
                 Pair<String, Place> pair = mPlacesOnMap.get(marker);
                 String key = pair.first;
                 Place place =pair.second;
-                Intent intent = new Intent(MapsActivity.this, DetailsActivity.class);
+                Intent intent = new Intent(MapActivity.this, DetailsActivity.class);
                 intent.putExtra(DetailsActivity.BUNDLE_KEY, key);
                 intent.putExtra(DetailsActivity.BUNDLE_PLACE, place);
                 startActivity(intent);

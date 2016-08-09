@@ -27,7 +27,7 @@ public class SelectActivity extends AppCompatActivity implements SelectFragment.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SelectActivity.this,MapsActivity.class));
+                startActivity(new Intent(SelectActivity.this,MapActivity.class));
             }
         });
     }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.auto.value.AutoValue;
 
 /**
+ * Avtovalue class for places
  * Created by Andrey Holovko on 8/2/16.
  */
 

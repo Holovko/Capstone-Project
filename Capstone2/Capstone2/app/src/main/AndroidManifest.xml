@@ -44,7 +44,7 @@
             android:value="@string/google_maps_key"/>
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".MapActivity"
             android:label="@string/title_places_on_map"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -54,7 +54,7 @@
         <activity
             android:name=".DetailsActivity"
             android:label="@string/title_activity_details"
-            android:parentActivityName=".MapsActivity"
+            android:parentActivityName=".MapActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

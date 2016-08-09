@@ -17,7 +17,7 @@ public class MapPresenter {
     MapView mView;
 
 
-    private final IDataProvider.OnGetPLacesListener mPLaceListener = new IDataProvider.OnGetPLacesListener() {
+    private final IDataProvider.OnGetPlacesListener mPLaceListener = new IDataProvider.OnGetPlacesListener() {
         @Override
         public void onGetPlaces(Map<String, Place> places) {
             updatePLaces(places);
@@ -43,6 +43,7 @@ public class MapPresenter {
     public MapPresenter(MapView view, IDataProvider dataProvider) {
         mDataProvider = dataProvider;
         mDataProvider.getListPlacesByType(Constant.RUBRIC_PARKS,mPLaceListener);
+        mDataProvider.writePlace("0000",Constant.RUBRIC_PARKS,false,"vvvv","ddddd","pic",50.389000, 30.499000);
         mView = view;
         mView.initView();
     }

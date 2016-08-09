@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.holovko.kyivmommap.Constant;
-import com.holovko.kyivmommap.MapsActivity;
+import com.holovko.kyivmommap.MapActivity;
 import com.holovko.kyivmommap.R;
 import com.holovko.kyivmommap.model.Rubric;
 import com.holovko.kyivmommap.utils.ItemClickSupport;
@@ -109,7 +109,7 @@ public class SelectFragment extends Fragment {
                 @Override
                 public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 //    Toast.makeText(getContext(),"eee"+position,Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(), MapsActivity.class));
+                startActivity(new Intent(getContext(), MapActivity.class));
                 }
             });
         }
