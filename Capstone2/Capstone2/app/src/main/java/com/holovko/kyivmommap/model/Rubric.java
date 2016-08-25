@@ -3,8 +3,8 @@ package com.holovko.kyivmommap.model;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
-import com.holovko.kyivmommap.Constant;
-import com.holovko.kyivmommap.Constant.*;
+import com.holovko.kyivmommap.data.Constant;
+import com.holovko.kyivmommap.data.Constant.*;
 
 /**
  * Class helper for CardView

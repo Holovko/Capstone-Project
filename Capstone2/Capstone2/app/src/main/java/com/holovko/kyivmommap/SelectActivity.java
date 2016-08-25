@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.holovko.kyivmommap.data.Constant;
 import com.holovko.kyivmommap.fragment.SelectFragment;
+import com.holovko.kyivmommap.service.PhotoService;
 
 public class SelectActivity extends AppCompatActivity implements SelectFragment.OnSelectFragmentListener {
 
@@ -27,7 +29,9 @@ public class SelectActivity extends AppCompatActivity implements SelectFragment.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SelectActivity.this,MapActivity.class));
+                Intent intent = new Intent(SelectActivity.this,PhotoService.class);
+                startService(intent);
+                //startActivity(new Intent(SelectActivity.this,MapActivity.class));
             }
         });
     }

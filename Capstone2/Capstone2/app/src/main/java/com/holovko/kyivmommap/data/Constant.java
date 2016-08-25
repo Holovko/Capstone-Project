@@ -1,9 +1,10 @@
-package com.holovko.kyivmommap;
+package com.holovko.kyivmommap.data;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.StringRes;
 
+import com.holovko.kyivmommap.R;
 import com.holovko.kyivmommap.model.Rubric;
 
 import java.lang.annotation.Retention;
@@ -52,7 +53,7 @@ public class Constant {
     public static String getNodeByType(@RubricType int type) {
         switch (type) {
             case RUBRIC_INDOOR_PLAY_AREA:
-                return "play_area";
+                return "play_areas";
             case RUBRIC_MUSEUMS:
                 return "museums";
             case RUBRIC_PARKS:

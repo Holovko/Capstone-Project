@@ -1,7 +1,8 @@
 package com.holovko.kyivmommap.presenter;
 
-import com.holovko.kyivmommap.Constant;
-import com.holovko.kyivmommap.data.IDataProvider;
+import android.util.Log;
+
+import com.holovko.kyivmommap.data.firebase.FireBaseDataSource;
 import com.holovko.kyivmommap.model.Place;
 import com.holovko.kyivmommap.view.MapView;
 
@@ -13,13 +14,13 @@ import java.util.Map;
  */
 public class MapPresenter {
     private Map<String, Place> mPlaces;
-    IDataProvider mDataProvider;
+    FireBaseDataSource mDataProvider;
     MapView mView;
 
 
-    private final IDataProvider.OnGetPlacesListener mPLaceListener = new IDataProvider.OnGetPlacesListener() {
+    private final FireBaseDataSource.GetPlacesCallback mPLaceListener = new FireBaseDataSource.GetPlacesCallback() {
         @Override
-        public void onGetPlaces(Map<String, Place> places) {
+        public void onPlacesLoaded(Map<String, Place> places) {
             updatePLaces(places);
         }
     };
@@ -40,10 +41,16 @@ public class MapPresenter {
         }
     }
 
-    public MapPresenter(MapView view, IDataProvider dataProvider) {
+    public MapPresenter(MapView view, FireBaseDataSource dataProvider) {
         mDataProvider = dataProvider;
-        mDataProvider.getListPlacesByType(Constant.RUBRIC_PARKS,mPLaceListener);
-        mDataProvider.writePlace("0000",Constant.RUBRIC_PARKS,false,"vvvv","ddddd","pic",50.389000, 30.499000);
+        mDataProvider.getPlaces(new FireBaseDataSource.GetPlacesCallback() {
+            @Override
+            public void onPlacesLoaded(Map<String, Place> places) {
+                Log.e("TAG", "onPlacesLoaded: "+places.toString());
+            }
+        });
+       // mDataProvider.getPlacesByType(Constant.RUBRIC_PARKS,mPLaceListener);
+       // mDataProvider.writePlace("0000",Constant.RUBRIC_PARKS,false,"vvvv","ddddd","pic",50.389000, 30.499000);
         mView = view;
         mView.initView();
     }

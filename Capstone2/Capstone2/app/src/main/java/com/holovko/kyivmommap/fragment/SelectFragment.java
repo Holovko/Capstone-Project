@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.holovko.kyivmommap.Constant;
+import com.holovko.kyivmommap.data.Constant;
 import com.holovko.kyivmommap.MapActivity;
 import com.holovko.kyivmommap.R;
 import com.holovko.kyivmommap.model.Rubric;

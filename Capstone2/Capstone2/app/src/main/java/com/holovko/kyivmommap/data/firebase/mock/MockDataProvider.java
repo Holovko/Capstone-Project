@@ -1,7 +1,8 @@
-package com.holovko.kyivmommap.data;
+package com.holovko.kyivmommap.data.firebase.mock;
 
 import com.google.firebase.database.Query;
-import com.holovko.kyivmommap.Constant;
+import com.holovko.kyivmommap.data.Constant;
+import com.holovko.kyivmommap.data.firebase.FireBaseDataSource;
 import com.holovko.kyivmommap.model.Comment;
 import com.holovko.kyivmommap.model.Place;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  * Mock data for testing
  * Created by Andrey Holovko on 8/1/16.
  */
-public class MockDataProvider implements IDataProvider {
+public class MockDataProvider implements FireBaseDataSource {
     @Override
     public Query getPlacesByType(@Constant.RubricType int type) {
         return null;
@@ -24,7 +25,12 @@ public class MockDataProvider implements IDataProvider {
     }
 
     @Override
-    public void getListPlacesByType(@Constant.RubricType int type, OnGetPlacesListener pLacesListener) {
+    public void getPlaces(GetPlacesCallback callback) {
+        //TODO
+    }
+
+    @Override
+    public void getPlacesByType(@Constant.RubricType int type, GetPlacesCallback pLacesListener) {
         Place testPlace1 = Place.create(true,"My Title 1","Description 1","pic",50.389419, 30.499712,5);
         Place testPlace2 = Place.create(true,"My Title 2","Description 1","pic",50.365076, 30.466265,4);
         Place testPlace3 = Place.create(true,"My Title 3","Description 1","pic",50.343102, 30.549816,3);
@@ -32,7 +38,7 @@ public class MockDataProvider implements IDataProvider {
         map.put("park1",testPlace1);
         map.put("park2",testPlace2);
         map.put("park3",testPlace3);
-        pLacesListener.onGetPlaces(map);
+        pLacesListener.onPlacesLoaded(map);
     }
 
     @Override

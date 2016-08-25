@@ -1,6 +1,7 @@
-package com.holovko.kyivmommap.data;
+package com.holovko.kyivmommap.data.firebase;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.firebase.database.DataSnapshot;
@@ -11,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.holovko.kyivmommap.Constant;
+import com.holovko.kyivmommap.data.Constant;
 import com.holovko.kyivmommap.model.Comment;
 import com.holovko.kyivmommap.model.Place;
 
@@ -22,33 +23,63 @@ import java.util.Map;
  * Data provider
  * Created by Andrey Holovko on 7/26/16.
  */
-public class DataProvider implements IDataProvider {
-    private static final String TAG = "DataProvider";
+public class FireBaseDataSourceImpl implements FireBaseDataSource {
+    private static final String TAG = "FireBaseDataSourceImpl";
     private static final String LANGUAGE_ENG = "eng";
     private static final String NODE_CATEGORY = "category";
     private static final String NODE_COMMENT = "comment";
-    private static DataProvider sInstance;
+    private static FireBaseDataSourceImpl INSTANCE;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference(LANGUAGE_ENG);
 
-    private DataProvider() {
+    private FireBaseDataSourceImpl() {
     }
 
-    public static synchronized DataProvider getInstance() {
-        if (sInstance == null) sInstance = new DataProvider();
-        return sInstance;
+    public static synchronized FireBaseDataSourceImpl getInstance() {
+        if (INSTANCE == null) INSTANCE = new FireBaseDataSourceImpl();
+        return INSTANCE;
+    }
+
+
+    @Override
+    public void getPlaces(final GetPlacesCallback callback) {
+        getCategory().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String,Place> places = new HashMap<>();
+                ObjectMapper mapper = new ObjectMapper();
+                for (Map.Entry<String, HashMap> cursor : getStringObjectMap(dataSnapshot,HashMap.class).entrySet()){
+
+                    for (Object place : cursor.getValue().entrySet()) {
+                        Map.Entry<String, Object> objectEntry = (Map.Entry<String, Object>) place;
+                        places.put(objectEntry.getKey(),
+                                mapper.convertValue(objectEntry.getValue(), Place.class));
+                    }
+                }
+                callback.onPlacesLoaded(places);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw new DatabaseException("Error with database");
+            }
+        });
+    }
+
+    private DatabaseReference getCategory() {
+        return mDatabase.child(NODE_CATEGORY);
     }
 
     @Override
     public Query getPlacesByType(@Constant.RubricType int type) {
-        return mDatabase.child(NODE_CATEGORY).child(Constant.getNodeByType(type));
+        return getCategory().child(Constant.getNodeByType(type));
     }
 
 
-    public void getListPlacesByType(@Constant.RubricType int type, final OnGetPlacesListener pLacesListener) {
+    public void getPlacesByType(@Constant.RubricType int type, final GetPlacesCallback callback) {
         getPlacesByType(type).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                pLacesListener.onGetPlaces(getStringObjectMap(dataSnapshot, Place.class));
+                callback.onPlacesLoaded(getStringObjectMap(dataSnapshot, Place.class));
             }
 
             @Override
@@ -93,7 +124,7 @@ public class DataProvider implements IDataProvider {
                            double latitude,
                            double longitude) {
         Place place = Place.create(approved, title, description, pic, latitude, longitude, 0);
-        mDatabase.child(NODE_CATEGORY)
+        getCategory()
                 .child(Constant.getNodeByType(type))
                 .push()
                 .setValue(getSerialize(place));
@@ -109,7 +140,7 @@ public class DataProvider implements IDataProvider {
     }
 
     /**
-     * Special converter for deserialize
+     * Converter for deserialize autovalue
      */
     @NonNull
     private <T> Map<String, T> getStringObjectMap(DataSnapshot dataSnapshot, Class<T> cls) {

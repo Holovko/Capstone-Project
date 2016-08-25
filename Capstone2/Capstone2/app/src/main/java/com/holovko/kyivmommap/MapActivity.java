@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.holovko.kyivmommap.data.DataProvider;
+import com.holovko.kyivmommap.data.firebase.FireBaseDataSourceImpl;
 import com.holovko.kyivmommap.model.Place;
 import com.holovko.kyivmommap.presenter.MapPresenter;
 import com.holovko.kyivmommap.view.MapView;
@@ -42,7 +42,7 @@ public class MapActivity extends BaseActivity implements MapView, OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        mPresenter = new MapPresenter(this, DataProvider.getInstance());
+        mPresenter = new MapPresenter(this, FireBaseDataSourceImpl.getInstance());
         //mPresenter = new MapPresenter(this, new MockDataProvider());
     }
 
