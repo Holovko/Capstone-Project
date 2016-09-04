@@ -8,6 +8,9 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -16,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,10 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
         </activity>
         <activity
-            android:name=".SelectActivity"
+            android:name=".ui.select.SelectActivity"
             android:label="@string/title_choose_category"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -44,23 +47,50 @@
             android:value="@string/google_maps_key"/>
 
         <activity
-            android:name=".MapActivity"
+            android:name=".ui.map.MapActivity"
             android:label="@string/title_places_on_map"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.holovko.kyivmommap.SelectActivity"/>
+                android:value="com.holovko.kyivmommap.ui.select.SelectActivity"/>
         </activity>
         <activity
-            android:name=".DetailsActivity"
+            android:name=".ui.details.DetailsActivity"
             android:label="@string/title_activity_details"
-            android:parentActivityName=".MapActivity"
+            android:parentActivityName=".ui.map.MapActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MapActivity"/>
+                android:value=".ui.map.MapActivity"/>
         </activity>
-        <service android:name=".service.PhotoService" android:exported="false"/>
+        <activity
+            android:name=".ui.favourite.FavouriteActivity"
+            android:parentActivityName=".ui.select.SelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.select.SelectActivity"/>
+        </activity>
+
+        <service
+            android:name=".service.PhotoService"
+            android:exported="false"/>
+
+        <provider
+            android:name=".data.DataBaseProvider"
+            android:authorities="com.holovko.kyivmommap.data"
+            android:exported="false"/>
+
+        <activity
+            android:name=".ui.add_new.AddPlaceActivity"
+            android:label="@string/title_activity_add_place"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".ui.select.SelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.holovko.kyivmommap.ui.select.SelectActivity"/>
+        </activity>
     </application>
 
 </manifest>

@@ -3,10 +3,11 @@ package com.holovko.kyivmommap.data.firebase.mock;
 import com.google.firebase.database.Query;
 import com.holovko.kyivmommap.data.Constant;
 import com.holovko.kyivmommap.data.firebase.FireBaseDataSource;
-import com.holovko.kyivmommap.model.Comment;
-import com.holovko.kyivmommap.model.Place;
+import com.holovko.kyivmommap.model.firebase.Comment;
+import com.holovko.kyivmommap.model.firebase.Place;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,7 +43,12 @@ public class MockDataProvider implements FireBaseDataSource {
     }
 
     @Override
-    public void getCommentListPlacesByKey(String key, OnGetCommentsListener listener) {
+    public void getPlacesByKey(List<String> keys, GetPlacesCallback callback) {
+        //
+    }
+
+    @Override
+    public void getCommentListPlacesByKey(String key, OnGetCommentsCallback listener) {
         Comment comment1 = Comment.create(true, "FFFFF","HUYNA",4);
         Comment comment2 = Comment.create(false, "FFFFF","HUYNA",5);
         Comment comment3 = Comment.create(true, "FFFFF","HUYNA",4.5f);
@@ -62,4 +68,5 @@ public class MockDataProvider implements FireBaseDataSource {
     public void writePlace(String uid, @Constant.RubricType int type, boolean approved, String title, String description, String pic, double latitude, double longitude) {
 
     }
+
 }

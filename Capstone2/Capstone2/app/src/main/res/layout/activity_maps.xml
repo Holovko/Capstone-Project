@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.holovko.kyivmommap.MainActivity">
+    tools:context="com.holovko.kyivmommap.ui.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -30,14 +30,14 @@
         android:clickable="true"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.holovko.kyivmommap.SelectActivity"
+        tools:context="com.holovko.kyivmommap.ui.select.SelectActivity"
         tools:showIn="@layout/activity_select">
 
         <fragment android:id="@+id/map"
                   android:name="com.google.android.gms.maps.SupportMapFragment"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  tools:context="com.holovko.kyivmommap.MapActivity"/>
+                  tools:context="com.holovko.kyivmommap.ui.map.MapActivity"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

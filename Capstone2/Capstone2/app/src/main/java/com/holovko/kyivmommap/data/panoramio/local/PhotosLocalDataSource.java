@@ -16,13 +16,17 @@
 
 package com.holovko.kyivmommap.data.panoramio.local;
 
+import android.accounts.NetworkErrorException;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
 
 import com.holovko.kyivmommap.data.panoramio.PhotoValues;
 import com.holovko.kyivmommap.data.panoramio.PhotosDataSource;
-import com.holovko.kyivmommap.model.panaramio.Photo;
+import com.holovko.kyivmommap.model.local.Photo;
+import com.holovko.kyivmommap.model.panaramio.PhotoPanaramio;
+
+import java.util.List;
 
 public class PhotosLocalDataSource implements PhotosDataSource {
 
@@ -41,8 +45,9 @@ public class PhotosLocalDataSource implements PhotosDataSource {
     }
 
     @Override
-    public void getPhotos(@NonNull GetPhotosCallback callback) {
+    public List<PhotoPanaramio> getPhotos(float minx, float miny, float maxx, float maxy) throws NetworkErrorException {
         //later
+        return null;
     }
 
     @Override

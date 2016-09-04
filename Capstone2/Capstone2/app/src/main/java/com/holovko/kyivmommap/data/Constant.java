@@ -5,7 +5,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.StringRes;
 
 import com.holovko.kyivmommap.R;
-import com.holovko.kyivmommap.model.Rubric;
+import com.holovko.kyivmommap.model.firebase.Rubric;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -22,6 +22,10 @@ public class Constant {
     public static final int RUBRIC_RESTAURANTS = 3;
     public static final int RUBRIC_MUSEUMS = 4;
     public static final int RUBRIC_INDOOR_PLAY_AREA = 5;
+    public static final String DATE_PHOTO_UPDATE = "date_photo_update";
+    public static final double KYIV_LATITUDE = 50.450803;
+    public static final double KYIV_LONGTITUDE = 30.522821;
+    public static String FAVOURITE_LIST = "favourite_list";
 
     public static List<Rubric> getListRubric() {
         ArrayList<Rubric> list = new ArrayList<>();
@@ -88,5 +92,21 @@ public class Constant {
     @IntDef({RUBRIC_PARKS, RUBRIC_PLAYGROUNDS, RUBRIC_RESTAURANTS,
             RUBRIC_MUSEUMS, RUBRIC_INDOOR_PLAY_AREA})
     public @interface RubricType {
+    }
+
+    public static @Constant.RubricType int getRubricType(int type){
+        switch (type) {
+            case RUBRIC_INDOOR_PLAY_AREA:
+                return RUBRIC_INDOOR_PLAY_AREA;
+            case RUBRIC_MUSEUMS:
+                return RUBRIC_MUSEUMS;
+            case RUBRIC_PARKS:
+                return RUBRIC_PARKS;
+            case RUBRIC_PLAYGROUNDS:
+                return RUBRIC_PLAYGROUNDS;
+            case RUBRIC_RESTAURANTS:
+                return RUBRIC_RESTAURANTS;
+        }
+        throw new IllegalArgumentException();
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,13 +7,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.holovko.kyivmommap.DetailsActivity"
+    tools:context="com.holovko.kyivmommap.ui.details.DetailsActivity"
     tools:showIn="@layout/activity_details">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text"/>
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/rb_stars"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:rating="5"/>
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            tools:text="@string/large_text"/>
+
+        <TextView
+            style="@style/MyText.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:text="@string/title_panaramio_photos"/>
+
+        <GridView
+            android:background="@color/grayDark"
+            android:padding="@dimen/spacing_tiniest"
+            android:id="@+id/grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_for_pics"
+
+            android:layout_margin="@dimen/text_margin"
+            android:listSelector="@null"
+            android:numColumns="1"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="none"/>
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

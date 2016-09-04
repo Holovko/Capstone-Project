@@ -2,9 +2,10 @@ package com.holovko.kyivmommap.data.firebase;
 
 import com.google.firebase.database.Query;
 import com.holovko.kyivmommap.data.Constant;
-import com.holovko.kyivmommap.model.Comment;
-import com.holovko.kyivmommap.model.Place;
+import com.holovko.kyivmommap.model.firebase.Comment;
+import com.holovko.kyivmommap.model.firebase.Place;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,8 +17,8 @@ public interface FireBaseDataSource {
     Query getCommentsByKey(String key);
     void getPlaces(final GetPlacesCallback callback);
     void getPlacesByType(@Constant.RubricType int type, GetPlacesCallback pLacesListener);
-    void getCommentListPlacesByKey(String key, final OnGetCommentsListener listener);
-
+    void getPlacesByKey(final List<String> keys, final GetPlacesCallback callback);
+    void getCommentListPlacesByKey(String key, final OnGetCommentsCallback listener);
     void writeComment(String uid,
                       String key,
                       boolean approved,
@@ -34,8 +35,10 @@ public interface FireBaseDataSource {
                     double longitude);
     interface GetPlacesCallback {
         void onPlacesLoaded(Map<String, Place> places);
+        void onDataNotAvailable();
     }
-    interface OnGetCommentsListener{
+    interface OnGetCommentsCallback {
         void onGetComments(Map<String, Comment> commentMap);
+        void onDataNotAvailable();
     }
 }

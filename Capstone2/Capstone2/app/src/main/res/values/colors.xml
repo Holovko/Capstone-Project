@@ -5,6 +5,9 @@
     <color name="colorAccent">#C80255</color>
     <color name="gray_light">#D8D8D8</color>
     <color name="gray">#B7B5B5</color>
+    <color name="grayDark">#404040</color>
+
+    <color name="colorSecondaryDark">#8b003b</color>
     <color name="fifty_percent_transparency_pink_light">#80FDBBD7</color>
 
 </resources>

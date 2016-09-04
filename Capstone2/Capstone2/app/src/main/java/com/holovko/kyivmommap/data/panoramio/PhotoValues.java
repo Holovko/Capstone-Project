@@ -19,7 +19,7 @@ package com.holovko.kyivmommap.data.panoramio;
 import android.content.ContentValues;
 
 import com.holovko.kyivmommap.data.panoramio.local.PhotosPersistenceContract;
-import com.holovko.kyivmommap.model.panaramio.Photo;
+import com.holovko.kyivmommap.model.local.Photo;
 
 public class PhotoValues {
     public static ContentValues from(Photo photo) {

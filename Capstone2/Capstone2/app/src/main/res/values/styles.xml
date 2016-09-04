@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -36,7 +35,9 @@
 
     <style name="MyText"/>
 
-    <style name="MyText.MyTitle" parent="TextAppearance.AppCompat.Title"/>
+    <style name="MyText.Title" parent="TextAppearance.AppCompat.Title"/>
+
+    <style name="MyText.Subhead" parent="TextAppearance.AppCompat.Subhead"/>
 
     <style name="MyText.Body" parent="TextAppearance.AppCompat.Body1"/>
 

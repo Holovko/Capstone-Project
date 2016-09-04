@@ -12,6 +12,7 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -33,7 +34,7 @@ buildscript {
 
 dependencies {
     def compileSdkVersion = '24.1.0'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:$compileSdkVersion"
     compile "com.android.support:recyclerview-v7:$compileSdkVersion"
     compile "com.android.support:cardview-v7:$compileSdkVersion"
@@ -48,6 +49,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     provided 'com.google.auto.value:auto-value:1.3-rc2'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     apt 'com.google.auto.value:auto-value:1.3-rc2'

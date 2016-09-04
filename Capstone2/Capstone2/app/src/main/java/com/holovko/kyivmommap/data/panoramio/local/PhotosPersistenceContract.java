@@ -40,7 +40,7 @@ public final class PhotosPersistenceContract {
         public static final String COLUMN_NAME_OWNER_URL = "ownerUrl";
         public static final String COLUMN_NAME_PHOTO_FILE_URL = "photoFileUrl";
         public static final Uri CONTENT_TASK_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
-        public static String[] TASKS_COLUMNS = new String[]{
+        public static String[] PHOTOS_COLUMNS = new String[]{
                 PhotoEntry._ID,
                 PhotoEntry.COLUMN_NAME_FIREBASE_ID,
                 PhotoEntry.COLUMN_NAME_PHOTO_URL,

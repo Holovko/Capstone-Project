@@ -1,23 +1,23 @@
 package com.holovko.kyivmommap.data.panoramio;
 
+import android.accounts.NetworkErrorException;
 import android.support.annotation.NonNull;
 
-import com.holovko.kyivmommap.model.panaramio.Photo;
+import com.holovko.kyivmommap.model.local.Photo;
+import com.holovko.kyivmommap.model.panaramio.PhotoPanaramio;
 
 import java.util.List;
 
 /**
+ * interface for main operations for app API
  * Created by Andrey Holovko on 8/24/16.
  */
 
 public interface PhotosDataSource {
-
-    interface GetPhotosCallback {
-        void onPhotosLoaded(List<Photo> photos);
-        void onDataNotAvailable();
-    }
-
-    void getPhotos(@NonNull GetPhotosCallback callback);
+    public List<PhotoPanaramio> getPhotos(float minx,
+                                          float miny,
+                                          float maxx,
+                                          float maxy) throws NetworkErrorException;
 
     void savePhoto(@NonNull Photo photo);
 
