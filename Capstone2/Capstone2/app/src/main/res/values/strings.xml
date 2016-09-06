@@ -31,4 +31,7 @@
     <string name="msg_add_description">Please add some description</string>
     <string name="msg_connect_to_internet">To continue work with app. Please connect to internet</string>
     <string name="msg_favourite_list_is_empty">Favourite list is empty</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="msg_no_data_avaiable">No data avaiable</string>
 </resources>

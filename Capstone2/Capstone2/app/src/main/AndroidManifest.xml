@@ -27,8 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity">
-        </activity>
         <activity
             android:name=".ui.select.SelectActivity"
             android:label="@string/title_choose_category"
@@ -84,13 +82,26 @@
         <activity
             android:name=".ui.add_new.AddPlaceActivity"
             android:label="@string/title_activity_add_place"
-            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".ui.select.SelectActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.holovko.kyivmommap.ui.select.SelectActivity"/>
         </activity>
+
+        <receiver android:name=".widget.MyAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.holovko.kyivmommap.widget.ACTION_DATA_LOADED"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/my_app_widget_info"/>
+        </receiver>
+        <service android:name=".widget.UpdateWidgetService"
+                 android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>
