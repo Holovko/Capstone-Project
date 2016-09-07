@@ -27,7 +27,7 @@
                 android:id="@+id/iv_main_pic"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/panaramio_photos_pic_height"
-                android:src="@drawable/park"
+                android:src="@drawable/parks"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7"/>

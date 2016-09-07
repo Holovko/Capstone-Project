@@ -74,15 +74,15 @@ public class Constant {
     public static int getBackGroundByRubric(@RubricType int type) {
         switch (type) {
             case RUBRIC_INDOOR_PLAY_AREA:
-                return R.drawable.park;
+                return R.drawable.play_areas;
             case RUBRIC_MUSEUMS:
-                return R.drawable.park;
+                return R.drawable.museums;
             case RUBRIC_PARKS:
-                return R.drawable.park;
+                return R.drawable.parks;
             case RUBRIC_PLAYGROUNDS:
-                return R.drawable.park;
+                return R.drawable.playgrounds;
             case RUBRIC_RESTAURANTS:
-                return R.drawable.park;
+                return R.drawable.restaurants;
         }
         throw new IllegalArgumentException();
     }

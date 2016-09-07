@@ -3,6 +3,7 @@ package com.holovko.kyivmommap.ui.select;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,38 +12,53 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.holovko.kyivmommap.R;
 import com.holovko.kyivmommap.data.Constant;
+import com.holovko.kyivmommap.model.firebase.Place;
 import com.holovko.kyivmommap.model.firebase.Rubric;
-import com.holovko.kyivmommap.ui.map.MapActivity;
+import com.holovko.kyivmommap.service.PhotoService;
+import com.holovko.kyivmommap.utils.CollectionUtils;
 import com.holovko.kyivmommap.utils.ItemClickSupport;
-import com.holovko.kyivmommap.utils.Utils;
 
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
-public class SelectFragment extends Fragment {
+public class SelectFragment extends Fragment implements SelectView {
 
+    private static final String BUNDLE_NUM_COLUMNS = "bundle_num_columns";
+    public static final String TAG = SelectFragment.class.getSimpleName();
     @BindView(R.id.rv_select_rubric)
     RecyclerView mRvSelectRubric;
     private OnSelectFragmentListener mListener;
-    private Unbinder mUnBinder;
     private GridLayoutManager mGridLayoutManager;
     private CardAdapter mAdapter;
+    private int mNumColumns;
 
     public SelectFragment() {
         // Required empty public constructor
     }
 
-    public static SelectFragment newInstance() {
-        return new SelectFragment();
+    public static SelectFragment newInstance(int numColumns)
+    {
+        SelectFragment selectFragment = new SelectFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_NUM_COLUMNS,numColumns);
+        selectFragment.setArguments(bundle);
+        return selectFragment;
     }
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+            mNumColumns = getArguments().getInt(BUNDLE_NUM_COLUMNS);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,7 +67,7 @@ public class SelectFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_select, container, false);
         ButterKnife.bind(this, view);
         mRvSelectRubric.setHasFixedSize(true);
-        mGridLayoutManager = new GridLayoutManager(getContext(), 2);
+        mGridLayoutManager = new GridLayoutManager(getContext(), mNumColumns);
         mRvSelectRubric.setLayoutManager(mGridLayoutManager);
         mAdapter = new CardAdapter(Constant.getListRubric());
         mRvSelectRubric.setAdapter(mAdapter);
@@ -73,7 +89,6 @@ public class SelectFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // mUnBinder.unbind();
     }
 
     @Override
@@ -82,8 +97,15 @@ public class SelectFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void startServiceToCollectPhoto(Map<String, Place> places) {
+        Intent intent = new Intent(getActivity(),PhotoService.class);
+        intent.putExtra(PhotoService.BUNDLE_MAP_PLACES, CollectionUtils.mapToBundle(places));
+        getActivity().startService(intent);
+    }
+
     public interface OnSelectFragmentListener {
-        void onRubricSelect(@Constant.RubricType int rubricType);
+        void onRubricSelect(int rubricType);
     }
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
@@ -127,14 +149,7 @@ public class SelectFragment extends Fragment {
         }
 
         public void showSelectedType(int position) {
-            //TODO in second version - remove this checking
-            if(!Utils.isOnline(getActivity())){
-                Toast.makeText(getActivity(),getString(R.string.msg_connect_to_internet),Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Intent intent = new Intent(getContext(), MapActivity.class);
-            intent.putExtra(MapActivity.BUNDLE_RUBRIC_TYPE, mDataset.get(position).getType());
-            startActivity(intent);
+            mListener.onRubricSelect(mDataset.get(position).getType());
         }
 
         @Override
