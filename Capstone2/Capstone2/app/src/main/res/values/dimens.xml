@@ -41,6 +41,8 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
     <dimen name="menu_right_width">300dp</dimen>
+    <dimen name="cv_tablet_main_pic_width">400dp</dimen>
+    <dimen name="favourite_list_width">-1dp</dimen>
 
 
 </resources>

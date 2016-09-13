@@ -12,6 +12,8 @@ import java.util.Calendar;
 import java.util.Map;
 
 /**
+ *
+ * Presenter for the rubric select and map fragment
  * Created by Andrey Holovko on 9/4/16.
  */
 
@@ -31,7 +33,10 @@ public class SelectPresenter {
         mDataRepository = dataRepository;
         mSharedPreferences = sharedPreferences;
         if(selectView!=null) collectPhotos();
-        if(mapView!=null) getPlaceByRubricType(rubricType);
+        if(mapView!=null) {
+            mapView.setPresenter(this);
+            getPlaceByRubricType(rubricType);
+        }
     }
 
     public void getPlaceByRubricType(int rubricType) {
@@ -74,6 +79,7 @@ public class SelectPresenter {
 
     private void fillPlacesOnMap() {
         if (isMapReady && mPlaces != null) {
+            mView.clearMapData();
             for (Map.Entry<String, Place> placeWithKey : mPlaces.entrySet()) {
                 Place place = placeWithKey.getValue();
                 mView.fillMapMarkerPLace(placeWithKey.getKey(), place, place.latitude(), place.longitude());

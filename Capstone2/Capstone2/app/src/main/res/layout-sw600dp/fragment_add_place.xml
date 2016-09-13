@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/spacing_small">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingBottom="@dimen/spacing_huger">
+
+        <RelativeLayout
+            android:id="@+id/content_add_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            tools:context="com.holovko.kyivmommap.ui.add_new.AddPlaceActivityFragment"
+            tools:showIn="@layout/activity_add_place">
+
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/MyText.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/title_select_place"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cv_map_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView"
+                android:layout_marginTop="@dimen/spacing_small">
+
+                <fragment
+                    android:id="@+id/mapFragment"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    tools:context="com.holovko.kyivmommap.ui.add_new.AddPlaceActivity"/>
+            </android.support.v7.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_normal"
+                android:layout_marginStart="@dimen/spacing_normal"
+                android:layout_toEndOf="@id/cv_map_fragment"
+                android:layout_toRightOf="@id/cv_map_fragment"
+                android:padding="@dimen/activity_vertical_margin"
+                tools:context="com.holovko.kyivmommap.ui.add_new.AddPlaceActivityFragment"
+                tools:showIn="@layout/activity_add_place">
+
+
+                <TextView
+                    android:id="@+id/textView2"
+                    style="@style/MyText.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/cv_mapFragment"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:labelFor="@+id/et_title"
+                    android:text="@string/title_place_title"/>
+
+                <EditText
+                    android:id="@+id/et_title"
+                    style="@style/MyText.Body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView2"
+                    android:inputType="textCapSentences"
+                    android:minWidth="200dp"/>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/MyText.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_title"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="@string/title_description"/>
+
+                <EditText
+                    android:id="@+id/et_description"
+                    style="@style/MyText.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView3"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:lines="10"
+                    android:minLines="8"
+                    android:scrollbars="vertical"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_thanks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_normal"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_emoticon"/>
+
+        <TextView
+            style="@style/MyText.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/msg_thank_you"/>
+
+        <TextView
+            style="@style/MyText.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/msg_thanks_for_add"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -33,7 +33,7 @@ public class SelectActivity extends BaseActivity implements SelectFragment.OnSel
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mIsTwoPane = (findViewById(R.id.fl_details) != null);
+        mIsTwoPane = (findViewById(R.id.fl_headlines) != null);
         mRubricType = (savedInstanceState != null) ? savedInstanceState.getInt(BUNDLE_RUBRIC_TYPE) : Constant.RUBRIC_PARKS;
 
         MapsFragment mapsFragment = (mIsTwoPane) ?
@@ -59,7 +59,6 @@ public class SelectActivity extends BaseActivity implements SelectFragment.OnSel
                         .beginTransaction()
                         .replace(R.id.fl_headlines, selectFragment, SelectFragment.TAG)
                         .commit();
-                mapsFragment = MapsFragment.newInstance();
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fl_details, mapsFragment, MapsFragment.TAG)

@@ -1,7 +1,6 @@
-package com.holovko.kyivmommap.ui.map;
+package com.holovko.kyivmommap.ui.details;
 
 import com.holovko.kyivmommap.model.firebase.Place;
-import com.holovko.kyivmommap.ui.select.SelectPresenter;
 
 /**
  * Created by Andrey Holovko on 7/26/16.
@@ -10,5 +9,5 @@ public interface MapView {
     void showAllOnMaps();
     void clearMapData();
     void fillMapMarkerPLace(String key, Place place, double latitude, double longitude);
-    void setPresenter(SelectPresenter presenter);
+    void setPresenter(DetailsPresenter presenter);
 }

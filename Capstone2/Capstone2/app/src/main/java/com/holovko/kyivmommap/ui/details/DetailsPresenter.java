@@ -26,28 +26,32 @@ public class DetailsPresenter implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String mKeyPlace;
     private final Place mPlace;
     private final DetailsView mView;
+    private final MapView mMapView;
     private final LoaderManager mLoaderManager;
     private final LoaderProvider mLoaderProvider;
     private final SharedPreferences mSharedPreferences;
+    private final boolean mIsInFavouriteList;
 
     public DetailsPresenter(LoaderProvider loaderProvider,
                             LoaderManager loaderManager,
                             DetailsView view,
                             String key,
                             Place place,
-                            SharedPreferences sharedPreferences) {
+                            MapView mapView, SharedPreferences sharedPreferences) {
         mLoaderProvider = loaderProvider;
         mLoaderManager = loaderManager;
         mView = view;
         mKeyPlace = key;
         mPlace = place;
+        mMapView = mapView;
+        if(mMapView!=null){
+            mMapView.setPresenter(this);
+        }
         mSharedPreferences = sharedPreferences;
-
-        boolean isInFavouriteList = mSharedPreferences
+        mIsInFavouriteList = mSharedPreferences
                 .getStringSet(Constant.FAVOURITE_LIST, new HashSet<String>())
                 .contains(mKeyPlace);
-        mView.initView(mPlace.pic(), mPlace.title(),mPlace.description(),mPlace.rank(), isInFavouriteList);
-        mLoaderManager.initLoader(0, null, this);
+        mView.setPresenter(this);
     }
 
     @Override
@@ -88,5 +92,15 @@ public class DetailsPresenter implements LoaderManager.LoaderCallbacks<Cursor> {
             mView.setFabWasAddedToFavourite(true);
             mView.showSuccessAddedToFavourite();
         }
+    }
+
+    public void start() {
+        mView.initView(mPlace.pic(), mPlace.title(),mPlace.description(),mPlace.rank(), mIsInFavouriteList);
+        mLoaderManager.initLoader(0, null, this);
+    }
+
+    public void onMapReady() {
+        mMapView.fillMapMarkerPLace(mKeyPlace, mPlace, mPlace.latitude(), mPlace.longitude());
+        mMapView.showAllOnMaps();
     }
 }

@@ -12,4 +12,5 @@ public interface DetailsView {
     void showSuccessAddedToFavourite();
     void showSuccessDeletedFromFavourite();
     void setFabWasAddedToFavourite(boolean isAddedToFavourite);
+    void setPresenter(DetailsPresenter presenter);
 }

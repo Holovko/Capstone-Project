@@ -20,6 +20,7 @@ import com.holovko.kyivmommap.model.firebase.Rubric;
 import com.holovko.kyivmommap.service.PhotoService;
 import com.holovko.kyivmommap.utils.CollectionUtils;
 import com.holovko.kyivmommap.utils.ItemClickSupport;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Map;
@@ -139,7 +140,13 @@ public class SelectFragment extends Fragment implements SelectView {
             CardViewHolder viewHolder = (CardViewHolder) holder;
             Rubric item = mDataset.get(position);
             viewHolder.mTvName.setText(item.getName());
-            viewHolder.mIvBackground.setBackgroundResource(item.getBackground());
+            /*viewHolder.mIvBackground.setBackgroundResource(
+                    item.getBackground());
+*/
+            Picasso.with(getContext())
+                    .load(item.getBackground())
+                    .fit()
+                    .into(viewHolder.mIvBackground);
             ItemClickSupport.addTo(mRvSelectRubric).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                 @Override
                 public void onItemClicked(RecyclerView recyclerView, int position, View v) {

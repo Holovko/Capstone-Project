@@ -68,6 +68,12 @@ public class MapsFragment extends Fragment implements MapView, OnMapReadyCallbac
         mapFragment.getMapAsync(this);
     }
 
+    public void clearMapData(){
+        if(mMap!=null){
+            mMap.clear();
+        }
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;

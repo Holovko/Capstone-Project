@@ -1,13 +1,16 @@
-package com.holovko.kyivmommap.ui.map;
+package com.holovko.kyivmommap.ui.details;
+
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatRatingBar;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -19,13 +22,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.holovko.kyivmommap.Injection;
 import com.holovko.kyivmommap.R;
 import com.holovko.kyivmommap.data.Constant;
 import com.holovko.kyivmommap.model.firebase.Place;
-import com.holovko.kyivmommap.ui.BaseActivity;
-import com.holovko.kyivmommap.ui.details.DetailsActivity;
-import com.holovko.kyivmommap.ui.select.SelectPresenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,42 +34,42 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MapActivityTemp extends BaseActivity implements MapView, OnMapReadyCallback {
-
-    public static final String BUNDLE_RUBRIC_TYPE = "bundle_rubric_type";
+public class MapsFragment extends Fragment implements MapView, OnMapReadyCallback {
+    public static final String TAG = MapsFragment.class.getSimpleName();
     private GoogleMap mMap;
-    private MapPresenter mPresenter;
+    private DetailsPresenter mPresenter;
     private HashMap<Marker, Pair<String, Place>> mPlacesOnMap = new HashMap<>();
-    private int mRubricType;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        if (savedInstanceState == null) {
-            mRubricType = getIntent().getExtras().getInt(BUNDLE_RUBRIC_TYPE);
-        } else {
-            mRubricType = savedInstanceState.getInt(BUNDLE_RUBRIC_TYPE);
-        }
-        mPresenter = new MapPresenter(this,
-                Injection.provideDataRepository(this),
-                mRubricType);
-        initView();
+    public MapsFragment() {}
+
+    public static MapsFragment newInstance() {
+        return new MapsFragment();
     }
 
     @Override
-    public void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-        }
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_maps, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    public void clearMapData(){
+        if(mMap!=null){
+            mMap.clear();
+        }
     }
 
     @Override
@@ -90,7 +89,7 @@ public class MapActivityTemp extends BaseActivity implements MapView, OnMapReady
                 Pair<String, Place> pair = mPlacesOnMap.get(marker);
                 String key = pair.first;
                 Place place = pair.second;
-                Intent intent = new Intent(MapActivityTemp.this, DetailsActivity.class);
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
                 intent.putExtra(DetailsActivity.BUNDLE_KEY, key);
                 intent.putExtra(DetailsActivity.BUNDLE_PLACE, place);
                 startActivity(intent);
@@ -107,15 +106,10 @@ public class MapActivityTemp extends BaseActivity implements MapView, OnMapReady
     }
 
     @Override
-    public void setPresenter(SelectPresenter presenter) {
-
+    public void setPresenter(DetailsPresenter presenter) {
+        mPresenter = presenter;
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(BUNDLE_RUBRIC_TYPE, mRubricType);
-    }
 
     public void showAllOnMaps() {
         List<Marker> markers = new ArrayList<>();
@@ -172,7 +166,7 @@ public class MapActivityTemp extends BaseActivity implements MapView, OnMapReady
 
         @Override
         public View getInfoContents(Marker marker) {
-            View v = getLayoutInflater().inflate(R.layout.item_info_window, null);
+            View v = getLayoutInflater(null).inflate(R.layout.item_info_window, null);
             ButterKnife.bind(this, v);
             Place place = mPlacesOnMap.get(marker).second;
             mTvTitle.setText(place.title());
@@ -181,4 +175,5 @@ public class MapActivityTemp extends BaseActivity implements MapView, OnMapReady
             return v;
         }
     }
+
 }
