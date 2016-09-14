@@ -2,11 +2,16 @@ package com.holovko.kyivmommap.ui.details;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +46,10 @@ public class DetailsFragment extends Fragment implements DetailsView, View.OnCli
     @BindView(R.id.rb_stars)
     AppCompatRatingBar mRbStars;
     @BindView(R.id.tv_title)
+    @Nullable
     TextView mTvTitle;
     private DetailsPresenter mPresenter;
+    private CollapsingToolbarLayout mToolBarLayout;
 
     public DetailsFragment() {
         // Required empty public constructor
@@ -54,6 +61,17 @@ public class DetailsFragment extends Fragment implements DetailsView, View.OnCli
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
         ButterKnife.bind(this, view);
+        mToolBarLayout = (CollapsingToolbarLayout) view.findViewById(R.id.toolbar_layout);
+        //Toolbar
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        if(toolbar!=null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if (bar != null) {
+                bar.setDisplayShowHomeEnabled(true);
+                bar.setDisplayHomeAsUpEnabled(true);
+            }
+        }
         mPresenter.start();
         return view;
     }
@@ -71,9 +89,14 @@ public class DetailsFragment extends Fragment implements DetailsView, View.OnCli
                 .fit()
                 .into(mIvMainPic);
 
-        if (getActivity().getActionBar() != null) getActivity().getActionBar().setTitle(title);
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
         if (mTvTitle!=null) mTvTitle.setText(title);
-
+        if(mToolBarLayout!=null)mToolBarLayout.setTitle(title);
         mTvDescription.setText(description);
         mRbStars.setRating(rank);
         mGridView.setFocusable(false);

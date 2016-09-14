@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 import com.holovko.kyivmommap.Injection;
 import com.holovko.kyivmommap.R;
 import com.holovko.kyivmommap.model.firebase.Place;
+import com.holovko.kyivmommap.ui.BaseActivity;
 import com.holovko.kyivmommap.ui.details.DetailsActivity;
 
 import java.util.LinkedHashMap;
@@ -28,7 +28,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FavouriteActivity extends AppCompatActivity implements FavouriteView {
+public class FavouriteActivity extends BaseActivity implements FavouriteView {
 
     @BindView(R.id.rv_favourite_list)
     RecyclerView mRvFavouriteList;

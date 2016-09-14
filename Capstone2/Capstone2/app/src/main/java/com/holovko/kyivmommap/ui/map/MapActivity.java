@@ -1,13 +1,17 @@
 package com.holovko.kyivmommap.ui.map;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.holovko.kyivmommap.Injection;
 import com.holovko.kyivmommap.R;
 import com.holovko.kyivmommap.ui.BaseActivity;
 import com.holovko.kyivmommap.ui.select.SelectPresenter;
+
+import static com.holovko.kyivmommap.R.id.fab;
 
 public class MapActivity extends BaseActivity{
 
@@ -30,7 +34,7 @@ public class MapActivity extends BaseActivity{
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fl_headlines, mFragment,MapsFragment.TAG)
+                    .replace(R.id.fl_details, mFragment,MapsFragment.TAG)
                     .commit();
         }
 
@@ -46,6 +50,9 @@ public class MapActivity extends BaseActivity{
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
+
+        FloatingActionButton favButton = (FloatingActionButton) findViewById(fab);
+        favButton.setVisibility(View.GONE);
     }
 
     @Override
