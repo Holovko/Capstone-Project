@@ -35,4 +35,8 @@
     <string name="add_widget">Add widget</string>
     <string name="msg_no_data_avaiable">No data avaiable</string>
     <string name="title_fav_list">Favourite list</string>
+    <string name="title_add">Add</string>
+    <string name="title_add_to_favourite">Add to favourite</string>
+    <string name="title_add_place">Add to place</string>
+    <string name="title_remove_from_favourite">Remove from favourite</string>
 </resources>

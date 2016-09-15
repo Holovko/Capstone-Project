@@ -107,6 +107,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:tint="@android:color/white"
         app:layout_anchor="@id/app_bar"
+        android:contentDescription="@string/title_add_to_favourite"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_heart"/>
 </android.support.design.widget.CoordinatorLayout>

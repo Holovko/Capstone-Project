@@ -39,6 +39,8 @@
     <dimen name="menu_right_width">300dp</dimen>
     <dimen name="cv_tablet_main_pic_width">400dp</dimen>
     <dimen name="favourite_list_width">-1px</dimen>
+    <dimen name="map_width_and_height">300dp</dimen>
+    <dimen name="image_thank_you_width">150dp</dimen>
 
 
 </resources>

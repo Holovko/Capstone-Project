@@ -71,6 +71,7 @@
                     android:layout_toEndOf="@id/cv_main_pic"
                     android:layout_toRightOf="@id/cv_main_pic"
                     android:tint="@android:color/white"
+                    android:contentDescription="@string/title_add_to_favourite"
                     app:layout_anchor="@id/app_bar"
                     app:layout_anchorGravity="bottom|end"
                     app:srcCompat="@drawable/ic_heart"/>

@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:contentDescription="@null"
+            android:contentDescription="@string/title_remove_from_favourite"
             android:background="?android:selectableItemBackground"
             android:tint="@color/colorPrimaryDark"
             app:srcCompat="@drawable/ic_clear"/>
