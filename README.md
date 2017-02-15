@@ -1,8 +1,6 @@
-Kyiv Mom Map
-
 # Description
 
-This app is a list of places in the city Kyiv where parents can spend time with their children. Get a short place description and coordinates on map. All places have 5-star rating system and each user can rate places in the catalog.
+Mobile app created as example of using Google Firebase with Google Maps. This app is example of using Firebase. This app is a list of places in the city Kyiv where parents can spend time with their children. Get a short place description and coordinates on map. All places have 5-star rating system and each user can rate places in the catalog.
 
 # Intended User
 
